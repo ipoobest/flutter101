@@ -1,3 +1,7 @@
+class VgaFilter {
+  List<String> vgaBrans;
+}
+
 class Vga {
   String cat;
   int id;
@@ -15,14 +19,14 @@ class Vga {
   String vgaSeries;
   String vgaTech;
   String vgaClock;
-  int vgaShader;
-  int vgaShaderUnit;
-  String vgaMemSpeed;
+  dynamic vgaShader;
+  dynamic vgaShaderUnit;
+  dynamic vgaMemSpeed;
   String vgaMemSize;
   String vgaMemType;
   String vgaBit;
   String vgaMaxReso;
-  int vgaDirectx;
+  dynamic vgaDirectx;
   String vgaCfSli;
   String vga3d;
   dynamic vgaCooling;
@@ -35,7 +39,7 @@ class Vga {
   String vgaOptionPort;
   String vgaPower;
   String vgaPsuRequire;
-  String vgaFeature;
+  dynamic vgaFeature;
   int vgaWaranty;
   int vgaScore;
   int score3D11;
@@ -51,17 +55,17 @@ class Vga {
   String vgaPicture;
   dynamic advId;
   dynamic tkId;
-  int jediId;
+  dynamic jediId;
   int soldout;
   String when;
   int tmpClose;
   String timestampTmpClose;
-  String commoreId;
-  String jibId;
+  dynamic commoreId;
+  dynamic jibId;
   int bananaId;
   int isHighlight;
-  Null vgaPriceTopvalue;
-  Null topvalueId;
+  dynamic vgaPriceTopvalue;
+  dynamic topvalueId;
   int lowestPrice;
   String vgaMemModel;
 

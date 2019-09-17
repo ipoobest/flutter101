@@ -6,6 +6,7 @@ import 'package:flutter_cache_store/flutter_cache_store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:hello_flutter/pages/vga_deail.dart';
+import 'package:hello_flutter/pages/vga_filter.dart';
 import 'package:hello_flutter/models/vga.dart';
 
 
@@ -75,6 +76,15 @@ showMessage(String txt) {
       appBar: AppBar(
         title: Text('pc build'),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.tune),
+            tooltip: 'Filter',
+            onPressed: () => {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => VgaFilterPage()
+              ))
+            },
+          ),
           IconButton(
             icon: Icon(Icons.sort),
             tooltip: 'Restitch it',
