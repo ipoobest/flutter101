@@ -1,125 +1,50 @@
 import 'package:flutter/material.dart';
 
-main(){
-  runApp(QuoteApp());
+void main(List<String> args) {
+  runApp(MyApp());
 }
 
-class QuoteApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Quote',
-      home: StatefulHomePage(),
+      home: HomePage(),
     );
   }
 }
 
-class Quote {
-  final String text;
-  final String author;
-  Quote(this.text, this.author);
-}
-
-class StatefulHomePage extends StatefulWidget {
-  @override
-  _StatefulHomePageState createState() => _StatefulHomePageState();
-}
-
-class _StatefulHomePageState extends State<StatefulHomePage> {
-  final _formkey = GlobalKey<FormState>();
-  String _inputQuote;
-  String _inputAuthor;
-
-  List<Quote> quotes = [];
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Quote'),
+        title: Text('pc build'),
       ),
-      body: Column(
-        children: <Widget>[
-          Form(
-            key: _formkey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                   decoration: InputDecoration(labelText: 'Quote'),
-                   onSaved: (String value){
-                    _inputQuote = value;
-                   },
-                ),
-                TextFormField(
-                   decoration: InputDecoration(labelText: 'Author'),
-                   onSaved: (String value){
-                     _inputAuthor = value;
-                   },
-                ),
-                RaisedButton(
-                  onPressed: (){
-                    _formkey.currentState.save();
-                    print(_inputAuthor);
-                    print(_inputQuote);
-                    setState(() {
-                      quotes.insert(0 ,Quote(_inputQuote, _inputAuthor));
-                    });
-                    _formkey.currentState.reset();
-                  },
-                  child: Text('Add'),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: quotes.length == 0
-              ? Center(child: Text('No quotes'),
-            )
-            : ListView.builder(
-              itemCount: quotes.length,
-                itemBuilder: (BuildContext context, int index){
-                  return QuoteCard(quotes[index].text, quotes[index].author);
-                },
-            ),
-          ),
-        ],
+      body: ListView.builder(
+        itemCount: 3,
+        itemBuilder:(context, index)  {
+          return GestureDetector(
+            onTap: () =>
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => DetailPage(),
+              )),
+            child: Text('$index'));
+        },
       ),
     );
   }
 }
 
-
-class QuoteCard extends StatelessWidget {
-  final String _text;
-  final String _author;
-  const QuoteCard(this._text, this._author,{
-    Key key,
-  }) : super(key: key);
-
+class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(8),
-      elevation: 10,
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              '$_text',
-              style: TextStyle(
-                fontSize: 20,
-                
-                ),
-              ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Detail page')),
+          body: Container(
+          child: RaisedButton(
+            child: Text('Back'),
+            onPressed: () => Navigator.pop(context),
           ),
-          Container(
-            alignment: Alignment(1, 0),
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              '$_author',
-              style: TextStyle(fontStyle: FontStyle.italic),),
-          ),
-        ],
       ),
     );
   }
