@@ -16,6 +16,7 @@ class VgaPage extends StatefulWidget {
 
 class _VgaPageState extends State<VgaPage> {
   List <Vga> vgas = [];
+  String sortBy = 'latest'; // latest , low2hight, hight2low
   @override
   void initState() {
     // TODO: implement initState
@@ -36,15 +37,44 @@ class _VgaPageState extends State<VgaPage> {
       });
     });
   }
+
+  sortAction(){
+    setState(() {
+      if(sortBy == 'latest'){
+        sortBy = 'low2hight';
+        vgas.sort((a,b) {
+          return b.vgaPriceAdv - a.vgaPriceAdv;
+        });
+      } else if(sortBy == 'low2hight'){
+        sortBy = 'hight2low';
+        vgas.sort((a,b) {
+          return a.vgaPriceAdv - b.vgaPriceAdv;
+        });
+      } else {
+        sortBy = 'latest';
+        vgas.sort((a,b) {
+          return a.id - b.id;
+        });
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('pc build'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.sort),
+            tooltip: 'Restitch it',
+            onPressed: () => sortAction(),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: vgas.length,
         itemBuilder:(context, index)  {
+          var v = vgas[vgas.length - index - 1];
           return GestureDetector(
             onTap: () =>
               Navigator.push(context, MaterialPageRoute(
@@ -57,7 +87,7 @@ class _VgaPageState extends State<VgaPage> {
                   width: 150,
                   child: CachedNetworkImage(
                     imageUrl: "https://www.advice.co.th/pic-pc/vga/${vgas[index].vgaPicture}",
-                    placeholder: (context, url) =>  CircularProgressIndicator(),
+                    // placeholder: (context, url) =>  CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>  Icon(Icons.error),
                   ),
                 ),
@@ -65,6 +95,7 @@ class _VgaPageState extends State<VgaPage> {
                   children: <Widget>[
                     Text('${vgas[index].vgaBrand}'),
                     Text('${vgas[index].vgaModel}'),
+                    Text('${vgas[index].vgaPriceAdv}' + ' บาท')
                   ],
                 ),
               ],

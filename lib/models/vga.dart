@@ -50,7 +50,7 @@ class Vga {
   int vgaPriceEtc;
   String vgaPicture;
   dynamic advId;
-  int tkId;
+  dynamic tkId;
   int jediId;
   int soldout;
   String when;
