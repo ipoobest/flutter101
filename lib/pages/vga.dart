@@ -43,17 +43,17 @@ class _VgaPageState extends State<VgaPage> {
       if(sortBy == 'latest'){
         sortBy = 'low2hight';
         vgas.sort((a,b) {
-          return b.vgaPriceAdv - a.vgaPriceAdv;
+          return a.vgaPriceAdv - b.vgaPriceAdv;
         });
       } else if(sortBy == 'low2hight'){
         sortBy = 'hight2low';
         vgas.sort((a,b) {
-          return a.vgaPriceAdv - b.vgaPriceAdv;
+          return b.vgaPriceAdv - a.vgaPriceAdv;
         });
       } else {
         sortBy = 'latest';
         vgas.sort((a,b) {
-          return a.id - b.id;
+          return b.id - a.id;
         });
       }
     });
@@ -74,7 +74,7 @@ class _VgaPageState extends State<VgaPage> {
       body: ListView.builder(
         itemCount: vgas.length,
         itemBuilder:(context, index)  {
-          var v = vgas[vgas.length - index - 1];
+          var v = vgas[index];
           return GestureDetector(
             onTap: () =>
               Navigator.push(context, MaterialPageRoute(
@@ -91,13 +91,19 @@ class _VgaPageState extends State<VgaPage> {
                     errorWidget: (context, url, error) =>  Icon(Icons.error),
                   ),
                 ),
-                Column(
-                  children: <Widget>[
-                    Text('${vgas[index].vgaBrand}'),
-                    Text('${vgas[index].vgaModel}'),
-                    Text('${vgas[index].vgaPriceAdv}' + ' บาท')
-                  ],
-                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('${vgas[index].vgaBrand}'),
+                          Text('${vgas[index].vgaModel}'),
+                          Text('${vgas[index].vgaPriceAdv} บาท'),
+                        ],
+                      ),
+                    ),
+                  ),
               ],
             ));
         },
