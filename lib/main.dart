@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -28,7 +29,20 @@ class HomePage extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) => DetailPage(),
               )),
-            child: Text('$index'));
+            child: Row(
+              children: <Widget>[
+                Container(
+                  height: 150,
+                  width: 150,
+                  child: CachedNetworkImage(
+                    imageUrl: "http://via.placeholder.com/350x150",
+                    placeholder: (context, url) =>  CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>  Icon(Icons.error),
+              ),
+                ),
+                Text('$index'),
+              ],
+            ));
         },
       ),
     );
