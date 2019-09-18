@@ -7,6 +7,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:hello_flutter/pages/vga_deail.dart';
 import 'package:hello_flutter/pages/vga_filter.dart';
+import 'package:hello_flutter/pages/vga_login.dart';
+
+// import 'package:hello_flutter/pages/vga_filter.dart';
 import 'package:hello_flutter/models/vga.dart';
 
 
@@ -19,9 +22,9 @@ class _VgaPageState extends State<VgaPage> {
   List <Vga> vgas = [];
   String sortBy = 'เรียงลำดับล่าสุด'; // latest , low2hight, hight2low
   BuildContext _scaffoldContext;
+  VgaFilter vgaFilter = VgaFilter();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadData();
   }
@@ -61,7 +64,7 @@ class _VgaPageState extends State<VgaPage> {
     });
   }
 
-showMessage(String txt) {
+  showMessage(String txt) {
   Scaffold.of(_scaffoldContext).showSnackBar(
     SnackBar(
       content: Text(txt),
@@ -79,10 +82,8 @@ showMessage(String txt) {
           IconButton(
             icon: Icon(Icons.tune),
             tooltip: 'Filter',
-            onPressed: () => {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) => VgaFilterPage()
-              ))
+            onPressed: () {
+                navifate2filterPage(context);
             },
           ),
           IconButton(
@@ -101,6 +102,18 @@ showMessage(String txt) {
           return bodyBuilder();
         },)
     );
+  }
+
+  navifate2filterPage(BuildContext context) async{
+      vgaFilter.vgaBrans = ['ASUS'];
+      VgaFilter result = await Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => VgaFilterPage(
+            vgaFilter: vgaFilter,
+      )));
+      print('out ${result.vgaBrans}');
+      
   }
 
   Widget bodyBuilder() {
